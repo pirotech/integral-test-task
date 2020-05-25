@@ -1,12 +1,7 @@
-.details-page {
+.ability-page {
+  width: 100%;
   min-height: 100vh;
   background-color: floralwhite;
-  &__title {
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    color: #222;
-    text-transform: uppercase;
-    text-align: center;
-  }
   &-info {
     padding: 20px;
     width: 100%;
@@ -37,24 +32,15 @@
       color: #222;
     }
   }
-  &__ability {
-    a {
-      text-decoration: underline;
-      cursor: pointer;
-    }
-  }
-  &-sprites {
-    display: flex;
-    flex-wrap: wrap;
-    @media (max-width: 576px) {
-      justify-content: center;
-    }
-    li {
-      padding: 10px;
-      margin-top: 10px;
-      margin-right: 10px;
-      background-color: white;
-      border-radius: 3px;
-    }
+  &__back {
+    margin-bottom: 20px;
+    padding: 8px 12px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #666;
+    border: none;
+    border-radius: 3px;
+    background-color: white;
+    cursor: pointer;
   }
 }

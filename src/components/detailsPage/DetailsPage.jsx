@@ -48,6 +48,11 @@ class DetailsPage extends Component<Props, State> {
     }
   }
 
+  toAbility = (id) => {
+    const { history } = this.props;
+    history.push(`/ability/${id}`);
+  };
+
   render(): React.ReactElement<any> {
     const { match } = this.props;
     const { pokemon } = this.state;
@@ -65,13 +70,15 @@ class DetailsPage extends Component<Props, State> {
             <p><strong>Abilities:</strong></p>
             <ul>
               {pokemon.abilities.map(item => (
-                <li>{item.ability.name}</li>
+                <li className="details-page__ability" key={item.ability.name}>
+                  <a onClick={() => this.toAbility(item.ability.id)}>{item.ability.name}</a>
+                </li>
               ))}
             </ul>
             <p><strong>Type: </strong></p>
             <ul>
               {pokemon.types.map(item => (
-                <li>{item.type.name}</li>
+                <li key={item.type.name}>{item.type.name}</li>
               ))}
             </ul>
             <ul className="details-page-sprites">

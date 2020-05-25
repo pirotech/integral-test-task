@@ -31,7 +31,15 @@ function* detailsRequested(action: DetailsAction): Saga<void> {
     const { name } = action.payload;
     const promise = pokemonApi.getPokemonDetails(name);
     const { data } = yield promise;
-    const pokemon: Pokemon = data;
+    const abilities = data.abilities.map((item) => ({
+      ...item,
+      // .../ability/66/
+      ability: {
+        ...item.ability,
+        id: item.ability.url.split('/ability/')[1].replace('/', ''),
+      },
+    }));
+    const pokemon: Pokemon = { ...data, abilities };
     yield put(pokemonsActions.detailsSuccess(pokemon));
   } catch (e) {
     yield put(pokemonsActions.detailsFailure());

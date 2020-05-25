@@ -4,7 +4,9 @@ type Ability = {
   is_hidden: boolean,
   slot: number,
   ability: {
-    name: string
+    id: string,
+    name: string,
+    url: string,
   }
 };
 type Type = {

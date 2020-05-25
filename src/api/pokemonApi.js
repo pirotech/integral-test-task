@@ -52,6 +52,7 @@ const pokemonApi = {
     },
   }),
   getPokemonDetails: (name: string): AxiosPromise<PokemonDetailsResponse> => instance.get(`/pokemon/${name}/`),
+  getAbility: (id: string): AxiosPromise<AbilityResponse> => instance.get(`/ability/${id}/`),
 };
 
 export default pokemonApi;
