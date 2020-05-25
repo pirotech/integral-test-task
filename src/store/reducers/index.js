@@ -1,12 +1,10 @@
 import { connectRouter } from 'connected-react-router';
 import { combineReducers } from 'redux';
-import authReducer from './authReducer';
+import pokemonsReducer from './pokemonsReducer';
 
-const createRootReducer = history => {
-  return combineReducers({
-    router: connectRouter(history),
-    auth: authReducer
-  });
-};
+const createRootReducer = (history) => combineReducers({
+  router: connectRouter(history),
+  pokemons: pokemonsReducer,
+});
 
 export default createRootReducer;

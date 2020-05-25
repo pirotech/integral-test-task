@@ -1,27 +1,37 @@
+// @flow
 import { takeEvery, put } from 'redux-saga/effects';
-import { usersService } from '../services';
-import { LOGIN_REQUESTED, LOGIN_SUCCESS, LOGIN_FAILURE } from './actionTypes';
+import type { Saga } from 'redux-saga';
+import pokemonApi from '../api/pokemonApi';
+import {
+  POKEMONS_REQUESTED,
+  POKEMONS_SUCCESS,
+  POKEMONS_FAILURE,
+} from './actionTypes';
+import type { Pokemon, PokemonsAction } from './types';
 
-function* loginRequested({ payload }) {
+function* pokemonsRequested(action: PokemonsAction): Saga<void> {
   try {
-    const { username, password } = payload;
-    const [promise] = usersService.login(username, password);
-    const { token } = yield promise;
+    const { limit } = action.payload;
+    const promise = pokemonApi.getPokemons(limit);
+    const { data } = yield promise;
+    const pokemons: Pokemon[] = data.results.map((item) => ({
+      name: item.name,
+    }));
     yield put({
-      type: LOGIN_SUCCESS,
+      type: POKEMONS_SUCCESS,
       payload: {
-        token
-      }
+        pokemons,
+      },
     });
   } catch (e) {
     yield put({
-      type: LOGIN_FAILURE
+      type: POKEMONS_FAILURE,
     });
   }
 }
 
-function* authSaga() {
-  yield takeEvery(LOGIN_REQUESTED, loginRequested);
+function* pokemonsSaga(): Saga<void> {
+  yield takeEvery(POKEMONS_REQUESTED, pokemonsRequested);
 }
 
-export default authSaga;
+export default pokemonsSaga;
