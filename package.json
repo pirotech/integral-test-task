@@ -87,7 +87,8 @@
     "redux-saga": "^1.1.3",
     "regenerator-runtime": "^0.13.3",
     "reselect": "^4.0.0",
-    "styled-components": "^4.4.1"
+    "styled-components": "^4.4.1",
+    "lodash": "latest"
   },
   "husky": {
     "hooks": {

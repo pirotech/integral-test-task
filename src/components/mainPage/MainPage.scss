@@ -1,5 +1,19 @@
 .main-page {
+  width: 100%;
+  min-height: 100vh;
   background-color: floralwhite;
+  &__search {
+    display: block;
+    width: 300px;
+    padding: 10px 12px;
+    margin: 0 auto;
+    font-size: 16px;
+    border: none;
+    border-bottom: 3px solid #ddd;
+    border-radius: 3px;
+    background-color: white;
+    outline: none;
+  }
   &-list {
     display: flex;
     justify-content: center;

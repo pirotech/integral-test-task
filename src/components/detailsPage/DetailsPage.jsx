@@ -5,10 +5,10 @@ import {bindActionCreators} from "redux";
 import type {Dispatch} from "redux";
 import Header from "../../shared/components/header/Header";
 import type {RouterHistory} from "react-router";
-import './DetailsPage.scss';
 import pokemonsActions from "../../store/actions/pokemonsActions";
 import pokemonsSelector from "../../store/selectors/pokemonsSelector";
 import type {Pokemon} from "../../store/types";
+import './DetailsPage.scss';
 
 type StoreProps = {
   pokemons: Pokemon[],

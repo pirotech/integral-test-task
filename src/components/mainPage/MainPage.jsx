@@ -8,6 +8,7 @@ import pokemonsActions from "../../store/actions/pokemonsActions";
 import pokemonsSelector from "../../store/selectors/pokemonsSelector";
 import type { Pokemon } from "../../store/types";
 import type {RouterHistory} from "react-router";
+import _ from 'lodash';
 import "./MainPage.scss";
 
 type StoreProps = {
@@ -15,12 +16,28 @@ type StoreProps = {
   loadPokemons: (limit: number) => void
 };
 type Props = RouterHistory & StoreProps;
-type State = {};
+type State = {
+  searchString: string,
+  searched: Pokemon[]
+};
 
 class MainPage extends React.Component<Props, State> {
+  state: State = {
+    searchString: '',
+    searched: []
+  };
+
   componentDidMount(): void {
     const { loadPokemons } = this.props;
     loadPokemons();
+  }
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (this.props.pokemons.length > 0 && this.state.searched.length === 0) {
+      this.setState({
+        searched: this.props.pokemons
+      });
+    }
   }
 
   showDetails = (item: Pokemon): void => {
@@ -28,17 +45,41 @@ class MainPage extends React.Component<Props, State> {
     history.push(`/${item.name}`);
   };
 
-  render() {
+  search = () => {
     const { pokemons } = this.props;
+    const { searchString } = this.state;
+    const searched = searchString
+      ? pokemons.filter(item => item.name.includes(searchString))
+      : pokemons;
+    this.setState({
+      searched
+    });
+  };
+  debouncedSearch = _.debounce(this.search, 500);
+
+  onSearchStringChange = (e: SyntheticInputEvent<T>) => {
+    this.setState({
+      searchString: e.target.value
+    }, this.debouncedSearch);
+  };
+
+  render() {
+    const { searchString, searched } = this.state;
 
     return (
       <div className="main-page">
         <Header />
 
-
+        <input
+          className="main-page__search"
+          type="text"
+          value={searchString}
+          placeholder="Search"
+          onChange={this.onSearchStringChange}
+        />
 
         <ul className="main-page-list">
-          {pokemons.map(item => (
+          {searched.map(item => (
             <li className="main-page-card" key={item.name} onClick={() => this.showDetails(item)}>
               <img className="card__image" src="https://via.placeholder.com/150/e6e6e6" alt="pokemon placeholder"/>
               <h3 className="card__title">{item.name}</h3>
