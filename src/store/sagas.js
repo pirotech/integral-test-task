@@ -1,13 +1,13 @@
 // @flow
-import { takeEvery, put } from 'redux-saga/effects';
+import { takeLatest, put, all } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import pokemonApi from '../api/pokemonApi';
+import pokemonsActions from './actions/pokemonsActions';
 import {
   POKEMONS_REQUESTED,
-  POKEMONS_SUCCESS,
-  POKEMONS_FAILURE,
+  DETAILS_REQUESTED,
 } from './actionTypes';
-import type { Pokemon, PokemonsAction } from './types';
+import type { DetailsAction, Pokemon, PokemonsAction } from './types';
 
 function* pokemonsRequested(action: PokemonsAction): Saga<void> {
   try {
@@ -17,21 +17,35 @@ function* pokemonsRequested(action: PokemonsAction): Saga<void> {
     const pokemons: Pokemon[] = data.results.map((item) => ({
       name: item.name,
     }));
-    yield put({
-      type: POKEMONS_SUCCESS,
-      payload: {
-        pokemons,
-      },
-    });
+    yield put(pokemonsActions.pokemonsSuccess(pokemons));
   } catch (e) {
-    yield put({
-      type: POKEMONS_FAILURE,
-    });
+    yield put(pokemonsActions.pokemonsFailure());
   }
 }
-
 function* pokemonsSaga(): Saga<void> {
-  yield takeEvery(POKEMONS_REQUESTED, pokemonsRequested);
+  yield takeLatest(POKEMONS_REQUESTED, pokemonsRequested);
 }
 
-export default pokemonsSaga;
+function* detailsRequested(action: DetailsAction): Saga<void> {
+  try {
+    const { name } = action.payload;
+    const promise = pokemonApi.getPokemonDetails(name);
+    const { data } = yield promise;
+    const pokemon: Pokemon = data;
+    yield put(pokemonsActions.detailsSuccess(pokemon));
+  } catch (e) {
+    yield put(pokemonsActions.detailsFailure());
+  }
+}
+function* detailsSaga(): Saga<void> {
+  yield takeLatest(DETAILS_REQUESTED, detailsRequested);
+}
+
+function* rootSaga(): Saga<void> {
+  yield all([
+    pokemonsSaga(),
+    detailsSaga(),
+  ]);
+}
+
+export default rootSaga;

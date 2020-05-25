@@ -4,7 +4,7 @@ import createSagaMiddleware from 'redux-saga';
 import { routerMiddleware } from 'connected-react-router';
 import logger from 'redux-logger';
 import createRootReducer from './reducers';
-import authSaga from './sagas';
+import rootSaga from './sagas';
 
 export const history = createBrowserHistory();
 
@@ -16,4 +16,4 @@ export const store = createStore(
   compose(applyMiddleware(routerMiddleware(history), sagaMiddleWare, logger)),
 );
 
-sagaMiddleWare.run(authSaga);
+sagaMiddleWare.run(rootSaga);

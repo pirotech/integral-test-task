@@ -4,6 +4,19 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    @media (max-width: 1200px) {
+      max-width: 876px;
+    }
+    @media (max-width: 876px) {
+      max-width: 576px;
+    }
+    @media (max-width: 576px) {
+      max-width: 320px;
+    }
   }
   &-card {
     margin: 20px;

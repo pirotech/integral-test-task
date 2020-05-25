@@ -3,7 +3,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import type { Dispatch } from "redux";
-import pokemonApi from "../../api/pokemonApi";
 import Header from "../../shared/components/header/Header";
 import pokemonsActions from "../../store/actions/pokemonsActions";
 import pokemonsSelector from "../../store/selectors/pokemonsSelector";
@@ -11,11 +10,11 @@ import type { Pokemon } from "../../store/types";
 import type {RouterHistory} from "react-router";
 import "./MainPage.scss";
 
-type Props = {
-  ...RouterHistory,
+type StoreProps = {
   pokemons: Pokemon[],
   loadPokemons: (limit: number) => void
 };
+type Props = RouterHistory & StoreProps;
 type State = {};
 
 class MainPage extends React.Component<Props, State> {
@@ -35,6 +34,9 @@ class MainPage extends React.Component<Props, State> {
     return (
       <div className="main-page">
         <Header />
+
+
+
         <ul className="main-page-list">
           {pokemons.map(item => (
             <li className="main-page-card" key={item.name} onClick={() => this.showDetails(item)}>
@@ -48,11 +50,9 @@ class MainPage extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: State): StoreProps => {
-  return {
-    pokemons: pokemonsSelector.getPokemons(state)
-  };
-};
+const mapStateToProps = (state: State): StoreProps => ({
+  pokemons: pokemonsSelector.getPokemons(state)
+});
 const mapDispatchToProps = (dispatch: Dispatch): StoreProps =>
   bindActionCreators(pokemonsActions, dispatch);
 

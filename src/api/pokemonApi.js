@@ -9,14 +9,14 @@ type PokemonsResponse = {
   }
 };
 
-type Ability = {
+type AbilityResponse = {
   is_hidden: boolean,
   slot: number,
   ability: {
     name: string
   }
 };
-type Type = {
+type TypeResponse = {
   slot: number,
   type: {
     name: string
@@ -30,7 +30,7 @@ type PokemonDetailsResponse = {
     height: number,
     order: number,
     weight: number,
-    abilities: Ability[],
+    abilities: AbilityResponse[],
     sprites: {
       back_female: string,
       back_shiny_female: string,
@@ -41,7 +41,7 @@ type PokemonDetailsResponse = {
       front_default: string,
       front_shiny: string
     },
-    types: Type[]
+    types: TypeResponse[]
   }
 };
 

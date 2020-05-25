@@ -1,8 +1,54 @@
 .details-page {
+  min-height: 100vh;
+  background-color: floralwhite;
   &__title {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     color: #222;
     text-transform: uppercase;
     text-align: center;
+  }
+  &-info {
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    @media (max-width: 1200px) {
+      max-width: 876px;
+    }
+    @media (max-width: 876px) {
+      max-width: 576px;
+    }
+    @media (max-width: 576px) {
+      max-width: 320px;
+    }
+  }
+  p {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.4em;
+    color: #222;
+  }
+  ul {
+    li {
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      padding-left: 10px;
+      font-size: 16px;
+      line-height: 1.4em;
+      color: #222;
+    }
+  }
+  &-sprites {
+    display: flex;
+    flex-wrap: wrap;
+    @media (max-width: 576px) {
+      justify-content: center;
+    }
+    li {
+      padding: 10px;
+      margin-top: 10px;
+      margin-right: 10px;
+      background-color: white;
+      border-radius: 3px;
+    }
   }
 }
