@@ -1,0 +1,12 @@
+.header {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #3D7DCA;
+  border-bottom: 3px solid #003A70;
+  &__title {
+    display: inline-block;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    color: #FFCB05;
+    cursor: pointer;
+  }
+}

@@ -1,2 +1,23 @@
 .main-page {
+  background-color: floralwhite;
+  &-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  &-card {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 3px;
+    cursor: pointer;
+    .card {
+      &__image {}
+      &__title {
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-weight: bold;
+        text-align: center;
+      }
+    }
+  }
 }
