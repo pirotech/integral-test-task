@@ -30,7 +30,7 @@ module.exports = () => {
       extensions: ['.js', '.jsx']
     },
     output: {
-      publicPath: '/',
+      publicPath: './',
       path: path.resolve(__dirname, '../dist'),
       filename: 'js/[name].bundle.js'
     }
